@@ -35,8 +35,8 @@ MyGame = ig.Game.extend({
 });
 ```
 
-For a more complex example, see the example/ folder, or go to http://impact-infinite-example.azurewebsites.net/
-
 LevelStart (which is optional) will be loaded first, so this is a good place to spawn your player.
 After that, Level1 and Level2 will be randomly chosen.
 It is up to you to move the screen.  The next level is chosen when the screen reaches the end of the current level.
+
+For a more complex example, see the example/ folder, or go to http://impact-infinite-example.azurewebsites.net/
