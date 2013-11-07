@@ -99,6 +99,7 @@ ig.InfiniteLevel = ig.Class.extend({
 			for(var k = 0; k < width; k++) {
 				row.push(0);
 			}
+
 			data.push(row);
 		}
 
@@ -125,7 +126,10 @@ ig.InfiniteLevel = ig.Class.extend({
 				this.extendMap(ig.game.backgroundMaps[i], nextLevel);
 			}
 
-			this.extendMap(ig.game.collisionMap, nextLevel);
+			// if there is a collision map, add the collision map tiles
+			if(ig.game.collisionMap.data) {
+				this.extendMap(ig.game.collisionMap, nextLevel);
+			}
 		}
 
 		// remove tiles that are no longer visible
@@ -135,17 +139,23 @@ ig.InfiniteLevel = ig.Class.extend({
 				for(var j = 0; j < data.length; j++) {
 					data[j].shift();
 				}
+
 				ig.game.backgroundMaps[i].width--;
 			}
 
-			for(var i = 0; i < ig.game.collisionMap.data.length; i++) {
-				ig.game.collisionMap.data[i].shift();
+			// if theere is a collisionMap remove the tiles that are no longer visible
+			if(ig.game.collisionMap.data) {
+				for(var i = 0; i < ig.game.collisionMap.data.length; i++) {
+					ig.game.collisionMap.data[i].shift();
+				}
+
+				ig.game.collisionMap.width--;
 			}
-			ig.game.collisionMap.width--;
 
 			for(var i = 0; i < ig.game.entities.length; i++) {
 				ig.game.entities[i].pos.x -= ig.game.backgroundMaps[0].tilesize;
 			}
+
 			ig.game.screen.x -= ig.game.backgroundMaps[0].tilesize;
 		}
 
@@ -180,6 +190,7 @@ ig.InfiniteLevel = ig.Class.extend({
 		for(var j = 0; j < data.length; j++) {
 			data[j].push.apply(data[j], layer.data[j]);
 		}
+
 		map.width += layer.width;
 	},
 
