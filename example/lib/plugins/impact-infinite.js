@@ -21,14 +21,14 @@
 
 ig.module(
     'plugins.impact-infinite'
-)
+    )
 .requires(
     'impact.system',
     'impact.game'
-)
+    )
 .defines(function() {
 
-ig.InfiniteLevel = ig.Class.extend({
+    ig.InfiniteLevel = ig.Class.extend({
     levels: null,
     start: null,
 
@@ -55,6 +55,7 @@ ig.InfiniteLevel = ig.Class.extend({
 
         // copy level data to a new variable so the level is refreshed on restart
         var LevelGameData = JSON.parse(JSON.stringify(LevelStart));
+            var LevelGameData = JSON.parse(JSON.stringify(firstLevel));
         ig.game.loadLevel(LevelGameData);
 
         for(var i = 0; i < layerNames.length; i++) {
@@ -204,5 +205,4 @@ ig.InfiniteLevel = ig.Class.extend({
         return false;
     }
 });
-
 });
