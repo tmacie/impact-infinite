@@ -28,6 +28,7 @@ MyGame = ig.Game.extend({
 	},
 	
 	update: function() {
+        this.parent();
 		this.infiniteLevel.update();
 	}
 });
