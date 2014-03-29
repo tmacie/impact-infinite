@@ -9,28 +9,28 @@ Here is a simple example:
 
 ```javascript
 ig.module( 
-	'game.main' 
+    'game.main' 
 )
 .requires(
-	'impact.game',
-	'game.levels.start',
-	'game.levels.1',
-	'game.levels.2',
-	'plugins.impact-infinite'
+    'impact.game',
+    'game.levels.start',
+    'game.levels.1',
+    'game.levels.2',
+    'plugins.impact-infinite'
 )
 .defines(function(){
 
 MyGame = ig.Game.extend({
-	infiniteLevel: null,
+    infiniteLevel: null,
 
-	init: function() {
-		this.infiniteLevel = new ig.InfiniteLevel([Level1, Level2], LevelStart);
-	},
-	
-	update: function() {
+    init: function() {
+        this.infiniteLevel = new ig.InfiniteLevel([Level1, Level2], LevelStart);
+    },
+    
+    update: function() {
         this.parent();
-		this.infiniteLevel.update();
-	}
+        this.infiniteLevel.update();
+    }
 });
 
 });
