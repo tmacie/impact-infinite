@@ -43,6 +43,6 @@ It is up to you to move the screen.  The next level is chosen when the screen re
 you can also pass the follow options to the constructor:
 * checkX - determines if entities should be killed when they leave the screen on the x-axis (default: true)
 * checkY - determines if entities should be killed when they leave the screen on the y-axis (default: true)
-* nextLevelFunc - a function that should accept the number of levels as an argument and returns the index of the next file that should be loaded.
+* nextLevelFunc - a function that should accept the number of levels as an argument and returns the index of the next file that should be loaded (default is random level selection).
 
 For a more complex example, see the example/ folder, or go to http://impact-infinite-example.azurewebsites.net/
