@@ -28,17 +28,38 @@ ig.module(
     )
 .defines(function() {
 
+    var nextLevelIndex = function (numLevels) {
+        return Math.floor(Math.random() * numLevels);
+    }
+
     ig.InfiniteLevel = ig.Class.extend({
         levels: null,
-        start: null,
+        options: {
+            start: null,
+            checkX: true,
+            checkY: true,
+            nextLevelFunc: nextLevelIndex
+        },
 
-        init: function(levels, start) {
+        init: function(levels, options) {
             this.levels = levels;
-            this.start = !start ? null : start;
+
+
+            if(options) {
+                // check if the user passed in the start level as the second param
+                if(options.entities && options.layer) {
+                    this.options.start = options;
+                } else {
+                    this.options.start = options.start || null;
+                    if(options.checkX === true || options.checkX === false ) this.options.checkX = options.checkX;
+                    if(options.checkY === true || options.checkY === false ) this.options.checkY = options.checkY;
+                    if(typeof options.nextLevelFunc === 'function') this.options.nextLevelFunc = options.nextLevelFunc;
+                }
+            }
 
             var allLevels = this.levels;
-            if(this.start != null) {
-                allLevels = allLevels.concat([this.start]);
+            if(this.options.start != null) {
+                allLevels = allLevels.concat([this.options.start]);
             }
 
             // get all layer names
@@ -54,7 +75,7 @@ ig.module(
             }
 
             // copy level data to a new variable so the level is refreshed on restart
-            var firstLevel = this.start || this.getNextLevel();
+            var firstLevel = this.options.start || this.getNextLevel();
             var LevelGameData = JSON.parse(JSON.stringify(firstLevel));
             ig.game.loadLevel(LevelGameData);
 
@@ -163,16 +184,15 @@ ig.module(
             // remove entities that are no longer visible
             for(var i = 0; i < ig.game.entities.length; i++) {
                 var entity = ig.game.entities[i];
-                if((entity.pos.x + entity.size.x) - ig.game.screen.x < 0
-                    || entity.pos.y > ig.game.screen.y + ig.system.height) {
+                if((this.options.checkX && (entity.pos.x + entity.size.x) - ig.game.screen.x < 0)
+                    || (this.options.checkY && (entity.pos.y > ig.game.screen.y + ig.system.height))) {
                     entity.kill();
             }
         }
     },
 
     getNextLevel: function() {
-        var nextIdx = Math.floor(Math.random() * this.levels.length);
-        return this.levels[nextIdx];
+        return this.levels[this.options.nextLevelFunc(this.levels.length)];
     },
 
     extendMap: function(map, level) {

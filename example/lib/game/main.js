@@ -43,7 +43,7 @@ MyGame = ig.Game.extend({
         this.font.letterSpacing = -2;        
         
         // Load the LevelGrasslands as required above ('game.level.grassland')
-        this.infiniteLevel = new ig.InfiniteLevel([LevelGrasslands, LevelSnowhills], LevelStart);
+        this.infiniteLevel = new ig.InfiniteLevel([LevelGrasslands, LevelSnowhills], {start: LevelStart, checkX: true, checkY:false});
     },
 
     reloadLevel: function() {
