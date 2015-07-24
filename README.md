@@ -45,4 +45,4 @@ you can also pass the follow options to the constructor:
 * checkY - determines if entities should be killed when they leave the screen on the y-axis (default: true)
 * nextLevelFunc - a function that should accept the number of levels as an argument and returns the index of the next file that should be loaded (default is random level selection).
 
-For a more complex example, see the example/ folder, or go to http://impact-infinite-example.azurewebsites.net/
+For a more complex example, see the example/ folder.
